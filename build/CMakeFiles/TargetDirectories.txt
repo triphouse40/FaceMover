@@ -1,0 +1,3 @@
+C:/Users/litia/OneDrive/Documents/FaceMover/build/CMakeFiles/Move_ur_face.dir
+C:/Users/litia/OneDrive/Documents/FaceMover/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/litia/OneDrive/Documents/FaceMover/build/CMakeFiles/ZERO_CHECK.dir

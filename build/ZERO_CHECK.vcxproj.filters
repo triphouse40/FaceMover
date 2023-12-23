@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\litia\OneDrive\Documents\FaceMover\build\CMakeFiles\759aa86792045d50621c155845cc31e4\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{C395C2CF-DF3C-39F8-BB0B-10E7DF8105A9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

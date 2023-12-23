@@ -1,0 +1,10 @@
+^C:\USERS\LITIA\ONEDRIVE\DOCUMENTS\FACEMOVER\BUILD\CMAKEFILES\759AA86792045D50621C155845CC31E4\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/litia/OneDrive/Documents/FaceMover -BC:/Users/litia/OneDrive/Documents/FaceMover/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/litia/OneDrive/Documents/FaceMover/build/Move_ur_face.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
