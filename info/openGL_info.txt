@@ -292,6 +292,46 @@ Uniforms  -- Uniforms are a tyoe of cariable which does not change it's value du
 --Params:
 	cap  --  Specifies a symbolic constant indicating a GL capability. Check for a line that starts with [GL_CAPA]
 
+#For textures
+
+@---glGenTextures(GLsizei n, GLuint *array(s)) Generates a texture object which you can use by the id provided by the function if the texture object is succesfully manipulated
+--Params:
+	n         --  Specifies the number of texture objects to be generated
+	array(s)  --  Specifies an array in which the generated texture object id's are stored
+
+@---glDeleteTextures(GLsizei n, GLuint *array(s)) Deletes a texture object
+--Params:
+	n         --  Specifies the number of texture objects to be deleted
+	array(s)  --  Specifies an array in which the generated texture object id's are stored
+
+@---glBindTexture(GLenum target, GLuint array) binds the targeted texture type to use until it is unbound
+--Params:
+	target  --  Specifies the target to which the texture is bound. Must be one of GL_TEXTURE_1D, GL_TEXTURE_2D, GL_TEXTURE_3D, GL_TEXTURE_1D_ARRAY, GL_TEXTURE_2D_ARRAY, GL_TEXTURE_RECTANGLE, GL_TEXTURE_CUBE_MAP, GL_TEXTURE_CUBE_MAP_ARRAY, GL_TEXTURE_BUFFER, GL_TEXTURE_2D_MULTISAMPLE or GL_TEXTURE_2D_MULTISAMPLE_ARRAY
+	array   --  Specifies the id of the texture to be bound
+	
+@---glTexParameter(i / f / iv / fv)(GLenum target, GLenum pname, GLfloat(f) param/GLint(i) param/ const GLint(iv) *params/ const GLfloat(fv) *params) sets the texture parameters. Check [TEX_DESCRPTION]
+--Params:
+	target  --  Specifies the target to which the texture is bound. Must be one of GL_TEXTURE_1D, GL_TEXTURE_2D, GL_TEXTURE_3D, GL_TEXTURE_1D_ARRAY, GL_TEXTURE_2D_ARRAY, GL_TEXTURE_RECTANGLE, GL_TEXTURE_CUBE_MAP, GL_TEXTURE_CUBE_MAP_ARRAY, GL_TEXTURE_BUFFER, GL_TEXTURE_2D_MULTISAMPLE or GL_TEXTURE_2D_MULTISAMPLE_ARRAY
+
+	pname   --  Specifies the symbolic name of a texture parameter. Must be one of GL_DEPTH_STENCIL_TEXTURE_MODE, GL_TEXTURE_BASE_LEVEL, GL_TEXTURE_COMPARE_FUNC, GL_TEXTURE_COMPARE_MODE, GL_TEXTURE_LOD_BIAS, GL_TEXTURE_MIN_FILTER, GL_TEXTURE_MAG_FILTER, GL_TEXTURE_MIN_LOD, GL_TEXTURE_MAX_LOD, GL_TEXTURE_MAX_LEVEL, GL_TEXTURE_SWIZZLE_R,
+	 			GL_TEXTURE_SWIZZLE_G, GL_TEXTURE_SWIZZLE_B, GL_TEXTURE_SWIZZLE_A, GL_TEXTURE_WRAP_S, GL_TEXTURE_WRAP_T, or GL_TEXTURE_WRAP_R, GL_TEXTURE_BORDER_COLOR or GL_TEXTURE_SWIZZLE_RGBA
+	
+	param   --  Specifies the value that pname is set to
+
+	params  --  Specifies a pointer to an array where the values of pname are stored
+
+@---glTextureParameter(i / f / fv / iv / Iiv / Iuiv)(GLuint texture, GLenum pname, GLint(i) param/ GLfloat(f) param/ const GLfloat(fv) *params/ const GLint(iv) *params/ const GLint(Iiv) *params/ const GLuint(Iuiv) *params) sets the texture parameters. Check [TEX_DESCRPTION]
+--Params:
+	texture  --  Specifies the texture object name/id 
+
+	pname    --  Specifies the symbolic name of a texture parameter. Must be one of GL_DEPTH_STENCIL_TEXTURE_MODE, GL_TEXTURE_BASE_LEVEL, GL_TEXTURE_COMPARE_FUNC, GL_TEXTURE_COMPARE_MODE, GL_TEXTURE_LOD_BIAS, GL_TEXTURE_MIN_FILTER, GL_TEXTURE_MAG_FILTER, GL_TEXTURE_MIN_LOD, GL_TEXTURE_MAX_LOD, GL_TEXTURE_MAX_LEVEL, GL_TEXTURE_SWIZZLE_R,
+	 			 GL_TEXTURE_SWIZZLE_G, GL_TEXTURE_SWIZZLE_B, GL_TEXTURE_SWIZZLE_A, GL_TEXTURE_WRAP_S, GL_TEXTURE_WRAP_T, or GL_TEXTURE_WRAP_R
+	
+	param    --  Specifies the value that pname is set to
+
+	params   --  Specifies a pointer to an array where the values of pname are stored
+	
+
 ShaderIV[
 	GL_SHADER_TYPE
 	params returns GL_VERTEX_SHADER if shader is a vertex shader object, and GL_FRAGMENT_SHADER if shader is a fragment shader object.
@@ -466,4 +506,88 @@ GL_CAPA [
 										only a single face are used to construct the final sample value.
 
 	GL_PROGRAM_POINT_SIZE			--	If enabled and a vertex or geometry shader is active, then the derived point size is taken from the (potentially clipped) shader builtin gl_PointSize and clamped to the implementation-dependent point size range.
+]
+
+TEX_DESCRPTION [
+
+	GL_DEPTH_STENCIL_TEXTURE_MODE
+		Specifies the mode used to read from depth-stencil format textures. params must be one of GL_DEPTH_COMPONENT or GL_STENCIL_INDEX. If the depth stencil mode is GL_DEPTH_COMPONENT, then reads from depth-stencil format textures will return the depth component of the texel in Rt 
+		and the stencil component will be discarded. If the depth stencil mode is GL_STENCIL_INDEX then the stencil component is returned in Rt and the depth component is discarded. The initial value is GL_DEPTH_COMPONENT.
+
+	GL_TEXTURE_BASE_LEVEL
+		Specifies the index of the lowest defined mipmap level. This is an integer value. The initial value is 0.
+
+	GL_TEXTURE_BORDER_COLOR
+		The data in params specifies four values that define the border values that should be used for border texels. If a texel is sampled from the border of the texture, the values of GL_TEXTURE_BORDER_COLOR are interpreted as an RGBA color to match the texture's internal format and substituted for the non-existent texel data. If the texture contains depth components, the first component of GL_TEXTURE_BORDER_COLOR is interpreted as a depth value. 
+		The initial value is (0.0,0.0,0.0,0.0).If the values for GL_TEXTURE_BORDER_COLOR are specified with glTexParameterIiv or glTexParameterIuiv, the values are stored unmodified with an internal data type of integer. If specified with glTexParameteriv, they are converted to floating point with the following equation: f=2c+12b−1. If specified with glTexParameterfv, they are stored unmodified as floating-point values.
+
+	GL_TEXTURE_COMPARE_FUNC
+		Specifies the comparison operator used when GL_TEXTURE_COMPARE_MODE is set to GL_COMPARE_REF_TO_TEXTURE. Permissible values are:
+			GL_LEQUAL	    ={1.00.0  r<=Dtr>Dt}
+			GL_GEQUAL	    ={1.00.0  r>=Dtr<Dt}
+			GL_LESS	result  ={1.00.0  r<Dtr>=Dt}
+			GL_GREATER	    ={1.00.0  r>Dtr<=Dt}
+			GL_EQUAL	    ={1.00.0  r=Dtr≠Dt}
+			GL_NOTEQUAL	    ={1.00.0  r≠Dtr=Dt}
+			GL_ALWAYS	    ={1.0}
+			GL_NEVER	    ={0.0}
+		where r is the current interpolated texture coordinate, and Dt is the depth texture value sampled from the currently bound depth texture. result is assigned to the red channel.
+
+	GL_TEXTURE_COMPARE_MODE
+		Specifies the texture comparison mode for currently bound depth textures. That is, a texture whose internal format is GL_DEPTH_COMPONENT_*; see (glTexImage2D) Permissible values are:
+			GL_COMPARE_REF_TO_TEXTURE
+				Specifies that the interpolated and clamped r texture coordinate should be compared to the value in the currently bound depth texture. See the discussion of GL_TEXTURE_COMPARE_FUNC for details of how the comparison is evaluated. The result of the comparison is assigned to the red channel.
+			GL_NONE
+				Specifies that the red channel should be assigned the appropriate value from the currently bound depth texture.
+
+	GL_TEXTURE_LOD_BIAS
+		params specifies a fixed bias value that is to be added to the level-of-detail parameter for the texture before texture sampling. The specified value is added to the shader-supplied bias value (if any) and subsequently clamped into the implementation-defined range [−biasmax,biasmax], where biasmax is the value of the implementation defined constant GL_MAX_TEXTURE_LOD_BIAS. The initial value is 0.0.
+
+	GL_TEXTURE_MAG_FILTER
+		The texture magnification function is used whenever the level-of-detail function used when sampling from the texture determines that the texture should be magified. It sets the texture magnification function to either GL_NEAREST or GL_LINEAR. 
+		GL_NEAREST is generally faster than GL_LINEAR, but it can produce textured images with sharper edges because the transition between texture elements is not as smooth. The initial value of GL_TEXTURE_MAG_FILTER is GL_LINEAR.
+		--Params:
+			GL_NEAREST
+				Returns the value of the texture element that is nearest (in Manhattan distance) to the specified texture coordinates.
+			GL_LINEAR
+				Returns the weighted average of the texture elements that are closest to the specified texture coordinates. These can include items wrapped or repeated from other parts of a texture, depending on the values of GL_TEXTURE_WRAP_S and GL_TEXTURE_WRAP_T, and on the exact mapping.
+
+	GL_TEXTURE_MIN_LOD
+		Sets the minimum level-of-detail parameter. This floating-point value limits the selection of highest resolution mipmap (lowest mipmap level). The initial value is -1000.
+
+	GL_TEXTURE_MAX_LOD
+		Sets the maximum level-of-detail parameter. This floating-point value limits the selection of the lowest resolution mipmap (highest mipmap level). The initial value is 1000.
+
+	GL_TEXTURE_MAX_LEVEL
+		Sets the index of the highest defined mipmap level. This is an integer value. The initial value is 1000.
+
+	GL_TEXTURE_SWIZZLE_R
+		Sets the swizzle that will be applied to the r component of a texel before it is returned to the shader. Valid values for param are GL_RED, GL_GREEN, GL_BLUE, GL_ALPHA, GL_ZERO and GL_ONE. If GL_TEXTURE_SWIZZLE_R is GL_RED, the value for r will be taken from the first channel of the fetched texel. 
+		If GL_TEXTURE_SWIZZLE_R is GL_GREEN, the value for r will be taken from the second channel of the fetched texel. If GL_TEXTURE_SWIZZLE_R is GL_BLUE, the value for r will be taken from the third channel of the fetched texel. If GL_TEXTURE_SWIZZLE_R is GL_ALPHA, the value for r will be taken from the fourth channel of the fetched texel. 
+		If GL_TEXTURE_SWIZZLE_R is GL_ZERO, the value for r will be subtituted with 0.0. If GL_TEXTURE_SWIZZLE_R is GL_ONE, the value for r will be subtituted with 1.0. The initial value is GL_RED.
+	
+	GL_TEXTURE_SWIZZLE_G
+		Sets the swizzle that will be applied to the g component of a texel before it is returned to the shader. Valid values for param and their effects are similar to those of GL_TEXTURE_SWIZZLE_R. The initial value is GL_GREEN.
+
+	GL_TEXTURE_SWIZZLE_B
+		Sets the swizzle that will be applied to the b component of a texel before it is returned to the shader. Valid values for param and their effects are similar to those of GL_TEXTURE_SWIZZLE_R. The initial value is GL_BLUE.
+
+	GL_TEXTURE_SWIZZLE_A
+		Sets the swizzle that will be applied to the a component of a texel before it is returned to the shader. Valid values for param and their effects are similar to those of GL_TEXTURE_SWIZZLE_R. The initial value is GL_ALPHA.
+
+	GL_TEXTURE_SWIZZLE_RGBA
+		Sets the swizzles that will be applied to the r, g, b, and a components of a texel before they are returned to the shader. Valid values for params and their effects are similar to those of GL_TEXTURE_SWIZZLE_R, except that all channels are specified simultaneously. 
+		Setting the value of GL_TEXTURE_SWIZZLE_RGBA is equivalent (assuming no errors are generated) to setting the parameters of each of GL_TEXTURE_SWIZZLE_R, GL_TEXTURE_SWIZZLE_G, GL_TEXTURE_SWIZZLE_B, and GL_TEXTURE_SWIZZLE_A successively.
+
+	GL_TEXTURE_WRAP_S
+		Sets the wrap parameter for texture coordinate s to either GL_CLAMP_TO_EDGE, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT, GL_REPEAT, or GL_MIRROR_CLAMP_TO_EDGE. GL_CLAMP_TO_EDGE causes s coordinates to be clamped to the range [1/2N,1−1/2N], where N is the size of the texture in the direction of clamping. GL_CLAMP_TO_BORDER evaluates s coordinates in a similar manner to GL_CLAMP_TO_EDGE. 
+		However, in cases where clamping would have occurred in GL_CLAMP_TO_EDGE mode, the fetched texel data is substituted with the values specified by GL_TEXTURE_BORDER_COLOR. GL_REPEAT causes the integer part of the s coordinate to be ignored; the GL uses only the fractional part, thereby creating a repeating pattern. GL_MIRRORED_REPEAT causes the s coordinate to be set to the fractional part of the texture 
+		coordinate if the integer part of s is even; if the integer part of s is odd, then the s texture coordinate is set to 1−frac(s), where frac(s) represents the fractional part of s. GL_MIRROR_CLAMP_TO_EDGE causes the s coordinate to be repeated as for GL_MIRRORED_REPEAT for one repetition of the texture, at which point the coordinate to be clamped as in GL_CLAMP_TO_EDGE. Initially, GL_TEXTURE_WRAP_S is set to GL_REPEAT.
+
+	GL_TEXTURE_WRAP_T
+		Sets the wrap parameter for texture coordinate t to either GL_CLAMP_TO_EDGE, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT, GL_REPEAT, or GL_MIRROR_CLAMP_TO_EDGE. See the discussion under GL_TEXTURE_WRAP_S. Initially, GL_TEXTURE_WRAP_T is set to GL_REPEAT.
+
+	GL_TEXTURE_WRAP_R
+		Sets the wrap parameter for texture coordinate r to either GL_CLAMP_TO_EDGE, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT, GL_REPEAT, or GL_MIRROR_CLAMP_TO_EDGE. See the discussion under GL_TEXTURE_WRAP_S. Initially, GL_TEXTURE_WRAP_R is set to GL_REPEAT.
+
 ]

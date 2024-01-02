@@ -11,5 +11,5 @@ target_include_directories(glm INTERFACE ${GLM_INCLUDE_DIRS})
 
 add_executable(${PROJECT_NAME} src/entry.cpp)
 
-target_include_directories(${PROJECT_NAME} PUBLIC "Shaderrs")
+target_include_directories(${PROJECT_NAME} PUBLIC "Shaderrs" "texturres")
 target_link_libraries(${PROJECT_NAME} PRIVATE glad::glad glfw glm)
